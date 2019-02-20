@@ -1,8 +1,8 @@
 LocalTTNMapper
 ===
 
-> Disclaimer: this system is in not way a sobstitute of TTNMapper! I suggest using it in addition to TTNMapper if you want to quickly produce a coverage map for a workshop/test/experiment.
-> It is expected that your application receives data from a GPS-enabled node in such a way that TTNMapper can map the data. 
+> Disclaimer: this system is not a substitute of TTNMapper! I suggest using it in addition to TTNMapper if you want to quickly produce a coverage map for a workshop/test/experiment.
+> Your TTN application should receive data from a GPS-enabled node in such a way that TTNMapper can map the data. 
 
 ![Example Map](map.png)
 
