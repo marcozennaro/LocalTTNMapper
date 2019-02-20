@@ -4,6 +4,8 @@ LocalTTNMapper
 > Disclaimer: this system is in not way a sobstitute of TTNMapper! I suggest using it in addition to TTNMapper if you want to quickly produce a coverage map for a workshop/test/experiment.
 > It is expected that your application receives data from a GPS-enabled node in such a way that TTNMapper can map the data. 
 
+![Example Map](map.png)
+
 Start with a fresh Rasbian installation. I used version 4.14.79. Connect to the Internet and download the latest updates.
 
 **Install Apache**
@@ -110,7 +112,7 @@ and add at the end of the file the following line:
 
 Reboot your computer with `sudo reboot` and check if the script is working with `pgrep coverage.py`. If you get a number then the script is running in the background. 
 
-You are set to map the coverage of your TTN network!
+You are set to map the coverage of your TTN network! If you click on the blu icon it will show the name of the Gateway, the description and the antenna height. If you click on any colored dot, a pop-up will appear with the name of the node, the frequency, the data rate and the list of gateways that have received the signal with RSSI and SNR values.
 
 
 
