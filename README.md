@@ -42,7 +42,9 @@ Go to your home directory if you are not there already:
 
 `cd ~`
 
-Copy the files here. 
+Clone the github repository:
+
+`git clone https://github.com/marcozennaro/LocalTTNMapper.git` 
 
 You will have two directories, one called home and one called html. Home contains the python files that are to be executed in the home directory, you can thererfore copy the python files to the home directory. The html folder contains files that have to be copies to the folder that is executed by apache2. First create a specific directory called coverage for the files:
 
