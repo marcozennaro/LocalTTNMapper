@@ -24,7 +24,7 @@ You can now make yourself the owner of that directory
 
 But you definitely want to set the permissions
 
-`sudo chmod 777 -R /var/www/html`
+`chmod 777 -R /var/www/html/coverage`
 
 **Install python**
 
@@ -54,7 +54,7 @@ You will have two directories, one called home and one called html. Home contain
 
 then copy all the files from html to this new directory with:
 
-`sudo cp -R * /var/www/html/coverage/`
+`sudo cp -R ~/LocalTTNMapper/html/* /var/www/html/`
 
 **Setting up the map**
 
