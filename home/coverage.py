@@ -55,39 +55,65 @@ def on_message(client, userdata, msg):
       clr = 'green'
 
     print(clr) 
-    file = open("/var/www/html/coverage/js/nodes.js","a")
-    file.write('var circle = L.circle([')
-    file.write("%f," % lat)
-    file.write("%f" % lon)
-    file.write('], {\n') 
-    file.write('color: \'%s\',' % clr)
-    file.write('fillColor: \'%s\',' % clr)
-    file.write('fillOpacity: 0.5,\n')
-    file.write('radius: 40 \n')
-    file.write('}).addTo(mymap).bindPopup("Device: <b> %s </b>' % device)
-    file.write('<br>Freq: %s' % themsg["metadata"]["frequency"])
-    file.write('<br>DR: %s' % themsg['metadata']['data_rate'])
-    file.write('<br><b>Gateway 1</b>: %s' % themsg['metadata']['gateways'][0]['gtw_id'])
-    file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][0]['rssi'])
-    file.write('<br>SNR: %s' % themsg['metadata']['gateways'][0]['snr'])
-    if len(themsg['metadata']['gateways']) == 1: 
-      file.write('");')
-    elif len(themsg['metadata']['gateways']) == 2:
-      file.write('<br><b>Gateway 2</b>: %s' % themsg['metadata']['gateways'][1]['gtw_id'])
-      file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][1]['rssi'])
-      file.write('<br>SNR: %s' % themsg['metadata']['gateways'][1]['snr'])
-      file.write('");')
-    elif len(themsg['metadata']['gateways']) == 3:
-      file.write('<br><b>Gateway 2</b>: %s' % themsg['metadata']['gateways'][1]['gtw_id'])
-      file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][1]['rssi'])
-      file.write('<br>SNR: %s' % themsg['metadata']['gateways'][1]['snr'])
-      file.write('<br><b>Gateway 3</b>: %s' % themsg['metadata']['gateways'][2]['gtw_id'])
-      file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][2]['rssi'])
-      file.write('<br>SNR: %s' % themsg['metadata']['gateways'][2]['snr'])
-      file.write('");')
-    file.write("\n")       
-    file.close()
+    
+   file = open("/var/www/html/scoverage/js/nodes.js","a")
+   file.write('var circle = L.circle([')
+   file.write("%f," % lat)
+   file.write("%f" % lon)
+   file.write('], {\n')
+   file.write('color: \'%s\',' % clr)
+   file.write('fillColor: \'%s\',' % clr)
+   file.write('fillOpacity: 0.2,')
+   file.write('radius: 20')
+   file.write('}).addTo(mymap).bindPopup("Device: <b> %s </b>' % device)
+   file.write('<br>Freq: %s' % themsg["metadata"]["frequency"])
+   file.write('<br>DR: %s' % themsg['metadata']['data_rate'])
+   file.write('<br><b>Gateway 1</b>: %s' %
+   themsg['metadata']['gateways'][0]['gtw_id'])
+   file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][0]['rssi'])
+   file.write('<br>SNR: %s' % themsg['metadata']['gateways'][0]['snr'])
 
+   if len(themsg['metadata']['gateways']) == 1:
+     file.write('");')
+   elif len(themsg['metadata']['gateways']) > 1:
+     file.write('<br><b>Gateway 2</b>: %s' %
+   themsg['metadata']['gateways'][1]['gtw_id'])
+     file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][1]['rssi'])
+     file.write('<br>SNR: %s' % themsg['metadata']['gateways'][1]['snr'])
+     file.write('");')
+   elif len(themsg['metadata']['gateways']) > 2:
+     file.write('<br><b>Gateway 2</b>: %s' %
+   themsg['metadata']['gateways'][1]['gtw_id'])
+     file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][1]['rssi'])
+     file.write('<br>SNR: %s' % themsg['metadata']['gateways'][1]['snr'])
+     file.write('<br><b>Gateway 3</b>: %s' %
+   themsg['metadata']['gateways'][2]['gtw_id'])
+     file.write('<br>RSSI: %s' % themsg['metadata']['gateways'][2]['rssi'])
+     file.write('<br>SNR: %s' % themsg['metadata']['gateways'][2]['snr'])
+     file.write('");')
+   #draw lines
+   linefromlat=themsg["payload_fields"]["latitude"]
+   linetolat=themsg['metadata']['gateways'][0]['latitude']
+   linefromlon=themsg["payload_fields"]["longitude"]
+   linetolon=themsg['metadata']['gateways'][0]['longitude']
+
+   file.write('\nvar latlngs = [[')
+   file.write("%f" % linefromlat)
+   file.write(',')
+   file.write("%f" % linefromlon)
+   file.write('],[')
+   file.write("%f" % linetolat)
+   file.write(',')
+   file.write("%f" % linetolon)
+   file.write(']];\n')
+   file.write('var polyline = L.polyline(latlngs, {color: \'')
+   file.write(clr)
+   file.write('\'}).addTo(mymap);')
+   #EO draw lines
+
+   file.write("\n")
+   file.close()
+        
  
 client = mqtt.Client()
 client.username_pw_set("coverage_mapping_XXX", password="ttn-account-v2.KQrXXBVBVX2pia39eFBUNpLMzXNNH1gZxFXsr2eNxY")
